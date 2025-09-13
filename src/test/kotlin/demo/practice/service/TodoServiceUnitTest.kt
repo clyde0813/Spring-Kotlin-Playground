@@ -22,4 +22,26 @@ class TodoServiceUnitTest : StringSpec({
         result.title shouldBe "test"
         verify { repo.save("test") }
     }
+
+    "등록된 하나의 Todo는 반드시 조회된다" {
+        every { repo.findAll() } returns listOf(TodoDto(1, "test", false))
+
+        service.getAll() shouldBe listOf(TodoDto(1, "test", false))
+        verify { repo.findAll() }
+    }
+
+    "등록된 다수의 Todo는 반드시 모두 조회된다" {
+        every { repo.findAll() } returns listOf(
+            TodoDto(1, "test1", false),
+            TodoDto(2, "test2", false),
+            TodoDto(3, "test3", false)
+        )
+
+        service.getAll() shouldBe listOf(
+            TodoDto(1, "test1", false),
+            TodoDto(2, "test2", false),
+            TodoDto(3, "test3", false)
+        )
+        verify { repo.findAll() }
+    }
 })
