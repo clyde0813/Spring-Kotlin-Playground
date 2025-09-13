@@ -34,8 +34,9 @@ dependencies {
     runtimeOnly("com.h2database:h2")
 
     // Kotest stable (v6.0.3)
-    testImplementation("io.kotest:kotest-runner-junit5:6.0.3")
-    testImplementation("io.kotest:kotest-assertions-core:6.0.3")
+    testImplementation("io.kotest:kotest-runner-junit5:5.9.1")
+    testImplementation("io.kotest:kotest-assertions-core:5.9.1")
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.3.0")
 
     // MockK (stable)
     testImplementation("io.mockk:mockk:1.14.5")
@@ -53,5 +54,9 @@ kotlin {
 }
 
 tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
+tasks.test {
     useJUnitPlatform()
 }
